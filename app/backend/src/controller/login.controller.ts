@@ -16,12 +16,12 @@ export default class LoginController {
     return res.status(status).json({ token: result });
   }
 
-  public async validateUser(req: Request, res: Response) {
-    const { authorization } = req.headers;
-    const { status, message, result } = await this.service.validateUser(authorization);
+  // public async validateUser(req: Request, res: Response) {
+  //   const { authorization } = req.headers;
+  //   const { status, message, result } = await this.service.validateUser(authorization);
 
-    if (message) return res.status(status).json({ message });
+  //   if (message) return res.status(status).json({ message });
 
-    return res.status(status).json({ token: result });
-  }
+  //   return res.status(status).json({ token: result });
+  // }
 }

@@ -1,7 +1,7 @@
 import * as bcrypt from 'bcryptjs';
 import IUser from '../interfaces/Users.interface';
 import User from '../database/models/users.model';
-import { generateToken, verifyToken } from '../auth/token';
+import { generateToken } from '../auth/token';
 
 export default class LoginService {
   public model;
@@ -23,11 +23,11 @@ export default class LoginService {
     return { status: 200, result: creatingToken };
   }
 
-  public async validateUser(receivedToken: string) {
-    const checkToken = verifyToken(receivedToken);
+  // public async validateUser(receivedToken: string) {
+  //   const checkToken = verifyToken(receivedToken);
 
-    if (!checkToken) return { status: 401, message: 'Invalid token' };
+  //   if (!checkToken) return { status: 401, message: 'Invalid token' };
 
-    return { status: 200, result: 'xomps' };
-  }
+  //   return { status: 200, result: 'xomps' };
+  // }
 }

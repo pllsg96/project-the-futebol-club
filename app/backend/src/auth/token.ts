@@ -19,7 +19,7 @@ const generateToken = (info: IUser) => {
 const verifyToken = (authorization: string) => {
   try {
     const payload = jwt.verify(authorization, secret);
-    return payload;
+    return payload as jwt.JwtPayload;
   } catch (error) {
     return { isError: true, error };
   }

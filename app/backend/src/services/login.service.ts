@@ -1,7 +1,7 @@
 import * as bcrypt from 'bcryptjs';
 import IUser from '../interfaces/Users.interface';
 import User from '../database/models/users.model';
-import { generateToken } from '../auth/token';
+import { generateToken, verifyToken } from '../auth/token';
 
 export default class LoginService {
   public model;
@@ -23,11 +23,14 @@ export default class LoginService {
     return { status: 200, result: creatingToken };
   }
 
-  // public async validateUser(receivedToken: string) {
-  //   const checkToken = verifyToken(receivedToken);
+  public async validateUser(authorization: string) {
+    const tknResult = verifyToken(authorization);
+    if (tknResult.isError) return { status: 401, message: 'Invalid Token' };
 
-  //   if (!checkToken) return { status: 401, message: 'Invalid token' };
+    const { email } = tknResult.withoutPassword;
 
-  //   return { status: 200, result: 'xomps' };
-  // }
+    const findRole = await this.model.findOne({ where: { email } });
+
+    return { status: 200, role: findRole?.role };
+  }
 }

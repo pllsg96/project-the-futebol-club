@@ -6,4 +6,10 @@ const UserMocked = {
   // senha: secret_admin
 };
 
-export default UserMocked;
+const UserTokenMocked =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ3aXRob3V0UGFzc3dvcmQiOnsiZW1haWwiOiJhZG1pbkBhZG1pbi5jb20ifSwiaWF0IjoxNjc2MDU1NzQ3LCJleHAiOjE2NzYwNTkzNDd9.ouZWfcDq4R3ZiFVVRRjHaLZPBXK4pB5tS-MjFcrWjek";
+
+export {
+  UserMocked,
+  UserTokenMocked,
+};

@@ -7,7 +7,7 @@ const secret = process.env.JWT_SECRET || 'xomps';
 
 const jwtConfig = {
   algorithm: 'HS256',
-  expiresIn: '1h',
+  expiresIn: '30D',
 } as object;
 
 const generateToken = (info: IUser) => {

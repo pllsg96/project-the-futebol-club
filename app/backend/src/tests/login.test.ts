@@ -73,8 +73,6 @@ describe('Teste da rota login', () => {
     });
 
     it('Espera retornar o role do usuário com o token válido', async () => {
-      sinon.stub(User, 'findOne').resolves(UserMocked as User);
-
       const chaiHttpResponse = await chai.request(app).get('/login/validate').set('Authorization', UserTokenMocked);
   
       expect(chaiHttpResponse.status).to.be.equal(200);

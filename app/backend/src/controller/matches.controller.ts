@@ -39,7 +39,15 @@ export default class MatchesController {
     const { status, message } = await this.service.updateMatch(Number(id));
     if (message && status !== 200) return res.status(status).json({ message });
 
-    console.log(id);
     return res.status(status).json(message);
+  }
+
+  public async updateMatchInProgress(req: Request, res: Response) {
+    const { id } = req.params;
+    const { body } = req;
+    const { status, message, result } = await this.service.updateMatchInProgress(Number(id), body);
+    if (message) return res.status(status).json({ message });
+
+    return res.status(status).json(result);
   }
 }

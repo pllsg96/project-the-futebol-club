@@ -1,4 +1,4 @@
-import matchDefault from '../interfaces/Matches.interface';
+import { IMatch, IUpdateMatchInProgress } from '../interfaces/Matches.interface';
 import Team from '../database/models/teams.model';
 import Matches from '../database/models/matches.model';
 import { verifyToken } from '../auth/token';
@@ -49,7 +49,7 @@ export default class MatchesService {
     return { status: 200, result: findMatchesByStatus };
   }
 
-  public async insertNewMatch(newMatch: matchDefault, authorization: string) {
+  public async insertNewMatch(newMatch: IMatch, authorization: string) {
     const tknResult = verifyToken(authorization);
     if (tknResult.isError) return { status: 401, message: 'Token must be a valid token' };
     console.log(authorization);
@@ -79,5 +79,17 @@ export default class MatchesService {
     });
 
     return { status: 200, message: 'Finished' };
+  }
+
+  public async updateMatchInProgress(id: number, matchUpdate: IUpdateMatchInProgress) {
+    const findMatch = await this.model.findOne({ where: { id } });
+    if (!findMatch) return { status: 404, message: 'The match was not found' };
+    findMatch.update({
+      ...findMatch,
+      homeTeamGoals: matchUpdate.homeTeamGoals,
+      awayTeamGoals: matchUpdate.awayTeamGoals,
+    });
+
+    return { status: 200, result: findMatch };
   }
 }

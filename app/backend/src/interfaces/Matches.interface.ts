@@ -1,4 +1,4 @@
-interface matchDefault {
+interface IMatch {
   id?: 1,
   homeTeamId: 16,
   homeTeamGoals: 2,
@@ -7,4 +7,12 @@ interface matchDefault {
   inProgress?: true,
 }
 
-export default matchDefault;
+interface IUpdateMatchInProgress {
+  homeTeamGoals: 3,
+  awayTeamGoals: 1
+}
+
+export {
+  IUpdateMatchInProgress,
+  IMatch,
+};

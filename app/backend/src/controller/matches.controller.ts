@@ -26,7 +26,9 @@ export default class MatchesController {
 
   public async insertNewMatch(req: Request, res: Response) {
     const { body } = req;
-    const { status, message, result } = await this.service.insertNewMatch(body);
+    const { authorization } = req.headers;
+    const { status, message, result } = await this
+      .service.insertNewMatch(body, authorization as string);
     if (message) return res.status(status).json({ message });
 
     return res.status(status).json(result);

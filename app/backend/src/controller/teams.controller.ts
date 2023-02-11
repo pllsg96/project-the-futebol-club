@@ -12,6 +12,6 @@ export default class TeamsController {
 
     if (message) return res.status(status).json({ message });
 
-    return res.status(status).json({ result });
+    return res.status(status).json(result);
   }
 }

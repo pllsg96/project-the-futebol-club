@@ -1,7 +1,7 @@
 import matchDefault from '../interfaces/Matches.interface';
 import Team from '../database/models/teams.model';
 import Matches from '../database/models/matches.model';
-import { verifyToken } from '../auth/token';gi
+import { verifyToken } from '../auth/token';
 
 export default class MatchesService {
   public model;

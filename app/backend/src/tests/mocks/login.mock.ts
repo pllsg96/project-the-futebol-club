@@ -7,7 +7,7 @@ const UserMocked = {
 };
 
 const UserTokenMocked =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ3aXRob3V0UGFzc3dvcmQiOnsiZW1haWwiOiJhZG1pbkBhZG1pbi5jb20ifSwiaWF0IjoxNjc2MDU1NzQ3LCJleHAiOjE2NzYwNTkzNDd9.ouZWfcDq4R3ZiFVVRRjHaLZPBXK4pB5tS-MjFcrWjek";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ3aXRob3V0UGFzc3dvcmQiOnsiZW1haWwiOiJhZG1pbkBhZG1pbi5jb20ifSwiaWF0IjoxNjc2MTI1NjA4LCJleHAiOjE2Nzg3MTc2MDh9.tB6yNFOX5euQhIWwcc42MiVkp1aHX6M8kL4WcJuMNf0";
 
 export {
   UserMocked,

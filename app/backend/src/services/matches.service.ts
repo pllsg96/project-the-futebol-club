@@ -25,4 +25,23 @@ export default class MatchesService {
 
     return { status: 200, result: findAllMatches };
   }
+
+  public async getMatchesByStatus(matchStatus: boolean) {
+    const findMatchesByStatus = await this.model.findAll({
+      where: { inProgress: matchStatus },
+      include: [{
+        model: Team,
+        as: 'homeTeam',
+        attributes: ['teamName'],
+      },
+      {
+        model: Team,
+        as: 'awayTeam',
+        attributes: ['teamName'],
+      }],
+    });
+    if (!findMatchesByStatus) return { status: 404, message: 'Not found any matches' };
+
+    return { status: 200, result: findMatchesByStatus };
+  }
 }

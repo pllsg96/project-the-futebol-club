@@ -56,4 +56,15 @@ export default class MatchesService {
 
     return { status: 201, result: creatingMatch };
   }
+
+  public async updateMatch(id: number) {
+    const findMatch = await this.model.findOne({ where: { id } });
+    if (!findMatch) return { status: 404, message: 'The match was not found' };
+    findMatch.update({
+      ...findMatch,
+      inProgress: false,
+    });
+
+    return { status: 200, message: 'Finished' };
+  }
 }

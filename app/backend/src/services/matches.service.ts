@@ -1,3 +1,4 @@
+import matchDefault from '../interfaces/Matches.interface';
 import Team from '../database/models/teams.model';
 import Matches from '../database/models/matches.model';
 
@@ -43,5 +44,16 @@ export default class MatchesService {
     if (!findMatchesByStatus) return { status: 404, message: 'Not found any matches' };
 
     return { status: 200, result: findMatchesByStatus };
+  }
+
+  public async insertNewMatch(newMatch: matchDefault) {
+    const creatingMatch = await this.model.create({
+      inProgress: true,
+      ...newMatch,
+    });
+
+    if (!creatingMatch) return { status: 403, message: 'Something gone wrong' };
+
+    return { status: 201, result: creatingMatch };
   }
 }

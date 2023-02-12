@@ -1,60 +1,36 @@
-import leaderboardObject from 'src/utils/leaderboard.help';
-import Team from '../database/models/teams.model';
-import Match from '../database/models/matches.model';
-import ITeam from '../interfaces/Teams.interface';
-import IMatch from '../interfaces/Matches.interface';
-
-// {
-//   "name": "Palmeiras",
-//   "totalPoints": 13,
-//   "totalGames": 5,
-//   "totalVictories": 4,
-//   "totalDraws": 1,
-//   "totalLosses": 0,
-//   "goalsFavor": 17,
-//   "goalsOwn": 5,
-//   "goalsBalance": 12,
-//   "efficiency": 86.67
-// },
+import TeamsService from './teams.service';
+import MatchesService from './matches.service';
+import leaderboardPattern from '../utils/leaderboard.pattern';
+import LeaderboardGenerator from '../utils/leaderboard.generator';
+import ILeaderboard from '../interfaces/Leaderboard.interface';
 
 export default class LeaderboardService {
-  public teamModel;
-  public matchesModel;
+  public teamService;
+  public matchesService;
+  public finalLeaderboard: [];
+  public teamData: ILeaderboard;
+  public lboard;
 
   constructor() {
-    this.teamModel = Team;
-    this.matchesModel = Match;
+    this.teamService = new TeamsService();
+    this.matchesService = new MatchesService();
+    this.finalLeaderboard = [];
+    this.lboard = new LeaderboardGenerator();
+    this.teamData = leaderboardPattern();
   }
 
   public async getAllLeaderboard() {
-    const allMatches = await this.matchesModel.findAll({
-      where: { inProgress: false },
-      include: [{
-        model: this.teamModel,
-        as: 'homeTeam',
-        attributes: ['teamName'],
-      },
-      {
-        model: this.teamModel,
-        as: 'awayTeam',
-        attributes: ['teamName'],
-      }],
-    });
+    const allTeams = await (await this.teamService.getAllTeams()).result;
+    const allMatches = await (await this.matchesService.getMatchesByStatus(false)).result;
 
-    const allTeams = await this.teamModel.findAll();
-    const finalResult = this.dataTeams(allTeams, allMatches);
+    allTeams?.forEach((team) => {
+      this.teamData = leaderboardPattern();
 
-    return { status: 200, result: finalResult };
-  }
-
-  public dataTeams(allTeams: ITeam[], allMatches: IMatch[]) {
-    const x = allTeams.forEach((team) => {
-      leaderboardObject;
-      allMatches.forEach((mtch) => {
-        if (mtch.home_team_id === team.id) {
-          theObject.totalPoints += 3;
-        }
+      allMatches?.forEach((match) => {
+        this.lboard.generateLeaderboard(this.teamData, team, match);
       });
     });
+
+    return { status: 200, result: finalResult };
   }
 }

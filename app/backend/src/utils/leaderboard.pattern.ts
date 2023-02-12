@@ -1,4 +1,4 @@
-const leaderboardObject = {
+const leaderboardPattern = () => ({
   name: '',
   totalPoints: 0,
   totalGames: 0,
@@ -8,7 +8,7 @@ const leaderboardObject = {
   goalsFavor: 0,
   goalsOwn: 0,
   goalsBalance: 0,
-  efficiency: 0.0,
-};
+  efficiency: '',
+});
 
-export default leaderboardObject;
+export default leaderboardPattern;

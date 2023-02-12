@@ -1,15 +1,15 @@
 interface IMatch {
-  id?: 1,
-  homeTeamId: 16,
-  homeTeamGoals: 2,
-  awayTeamId: 8,
-  awayTeamGoals: 2,
-  inProgress?: true,
+  id?: number,
+  homeTeamId: number,
+  homeTeamGoals: number,
+  awayTeamId: number,
+  awayTeamGoals: number,
+  inProgress?: boolean,
 }
 
 interface IUpdateMatchInProgress {
-  homeTeamGoals: 3,
-  awayTeamGoals: 1
+  homeTeamGoals: number,
+  awayTeamGoals: number,
 }
 
 export {

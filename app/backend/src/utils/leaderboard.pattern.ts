@@ -7,7 +7,7 @@ const leaderboardPattern = () => ({
   totalLosses: 0,
   goalsFavor: 0,
   goalsOwn: 0,
-  goalsBalance: 0,
+  goalsBalance: '',
   efficiency: '',
 });
 

@@ -7,15 +7,15 @@ import ILeaderboard from '../interfaces/Leaderboard.interface';
 export default class LeaderboardService {
   public teamService;
   public matchesService;
-  public finalLeaderboard: [];
+  public finalLeaderboard: ILeaderboard[];
   public teamData: ILeaderboard;
-  public lboard;
+  // public lboard;
 
   constructor() {
     this.teamService = new TeamsService();
     this.matchesService = new MatchesService();
     this.finalLeaderboard = [];
-    this.lboard = new LeaderboardGenerator();
+    // this.lboard = new LeaderboardGenerator();
     this.teamData = leaderboardPattern();
   }
 
@@ -27,10 +27,12 @@ export default class LeaderboardService {
       this.teamData = leaderboardPattern();
 
       allMatches?.forEach((match) => {
-        this.lboard.generateLeaderboard(this.teamData, team, match);
+        this.teamData = LeaderboardGenerator.generateLeaderboard(this.teamData, team, match);
       });
+
+      this.finalLeaderboard.push(this.teamData);
     });
 
-    return { status: 200, result: finalResult };
+    return { status: 200, result: this.finalLeaderboard };
   }
 }

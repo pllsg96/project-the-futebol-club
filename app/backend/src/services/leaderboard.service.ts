@@ -9,17 +9,16 @@ export default class LeaderboardService {
   public matchesService;
   public finalLeaderboard: ILeaderboard[];
   public teamData: ILeaderboard;
-  // public lboard;
 
   constructor() {
     this.teamService = new TeamsService();
     this.matchesService = new MatchesService();
     this.finalLeaderboard = [];
-    // this.lboard = new LeaderboardGenerator();
     this.teamData = leaderboardPattern();
   }
 
   public async getAllLeaderboard() {
+    this.finalLeaderboard = [];
     const allTeams = await (await this.teamService.getAllTeams()).result;
     const allMatches = await (await this.matchesService.getMatchesByStatus(false)).result;
 
@@ -32,6 +31,8 @@ export default class LeaderboardService {
 
       this.finalLeaderboard.push(this.teamData);
     });
+
+    LeaderboardGenerator.orderLeader(this.finalLeaderboard);
 
     return { status: 200, result: this.finalLeaderboard };
   }

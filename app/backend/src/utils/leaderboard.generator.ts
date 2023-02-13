@@ -37,9 +37,23 @@ export default class LeaderboardGenerator {
         .checkIfIsWinner(match.homeTeamGoals, match.awayTeamGoals, 'menor') as number;
       teamData.goalsFavor += match.homeTeamGoals;
       teamData.goalsOwn += match.awayTeamGoals;
-      teamData.goalsBalance = (teamData.goalsFavor - teamData.goalsOwn).toFixed(2);
+      teamData.goalsBalance = (teamData.goalsFavor - teamData.goalsOwn);
       teamData.efficiency = (((teamData.totalPoints) / (teamData.totalGames * 3)) * 100).toFixed(2);
     }
     return teamData;
+  }
+
+  static orderLeader(leader: ILeaderboard[]) {
+    return leader.sort((home: ILeaderboard, away: ILeaderboard) => {
+      if (home.totalPoints < away.totalPoints) return 1;
+      if (home.totalPoints > away.totalPoints) return -1;
+      if (home.goalsBalance < away.goalsBalance) return 1;
+      if (home.goalsBalance > away.goalsBalance) return -1;
+      if (home.goalsFavor < away.goalsFavor) return 1;
+      if (home.goalsFavor > away.goalsFavor) return -1;
+      if (home.goalsOwn < away.goalsOwn) return -1;
+      if (home.goalsOwn > away.goalsOwn) return 1;
+      return 0;
+    });
   }
 }

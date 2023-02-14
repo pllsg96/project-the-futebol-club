@@ -43,6 +43,27 @@ export default class LeaderboardGenerator {
     return teamData;
   }
 
+  static generateAwayLeaderboard(xomps: ILeaderboard, team: ITeams, match: IMatch) {
+    const teamData = xomps;
+    if (team.id === match.awayTeamId) {
+      teamData.name = team.teamName;
+      teamData.totalPoints += LeaderboardGenerator
+        .calculatePoints(match.awayTeamGoals, match.homeTeamGoals);
+      teamData.totalGames += 1;
+      teamData.totalVictories += LeaderboardGenerator
+        .checkIfIsWinner(match.awayTeamGoals, match.homeTeamGoals, 'maior') as number;
+      teamData.totalDraws += LeaderboardGenerator
+        .checkIfIsWinner(match.awayTeamGoals, match.homeTeamGoals, 'igual') as number;
+      teamData.totalLosses += LeaderboardGenerator
+        .checkIfIsWinner(match.awayTeamGoals, match.homeTeamGoals, 'menor') as number;
+      teamData.goalsFavor += match.awayTeamGoals;
+      teamData.goalsOwn += match.homeTeamGoals;
+      teamData.goalsBalance = (teamData.goalsFavor - teamData.goalsOwn);
+      teamData.efficiency = (((teamData.totalPoints) / (teamData.totalGames * 3)) * 100).toFixed(2);
+    }
+    return teamData;
+  }
+
   static orderLeader(leader: ILeaderboard[]) {
     return leader.sort((home: ILeaderboard, away: ILeaderboard) => {
       if (home.totalPoints < away.totalPoints) return 1;

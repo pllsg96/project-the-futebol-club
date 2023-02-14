@@ -26,7 +26,29 @@ export default class LeaderboardService {
       this.teamData = leaderboardPattern();
 
       allMatches?.forEach((match) => {
-        this.teamData = LeaderboardGenerator.generateLeaderboard(this.teamData, team, match);
+        this.teamData = LeaderboardGenerator
+          .generateLeaderboard(this.teamData, team, match);
+      });
+
+      this.finalLeaderboard.push(this.teamData);
+    });
+
+    LeaderboardGenerator.orderLeader(this.finalLeaderboard);
+
+    return { status: 200, result: this.finalLeaderboard };
+  }
+
+  public async getAllAwayLeaderboard() {
+    this.finalLeaderboard = [];
+    const allTeams = await (await this.teamService.getAllTeams()).result;
+    const allMatches = await (await this.matchesService.getMatchesByStatus(false)).result;
+
+    allTeams?.forEach((team) => {
+      this.teamData = leaderboardPattern();
+
+      allMatches?.forEach((match) => {
+        this.teamData = LeaderboardGenerator
+          .generateAwayLeaderboard(this.teamData, team, match);
       });
 
       this.finalLeaderboard.push(this.teamData);

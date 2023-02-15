@@ -14,6 +14,7 @@ export default class LeaderboardService {
     this.teamService = new TeamsService();
     this.matchesService = new MatchesService();
     this.finalLeaderboard = [];
+    // this.allGeneralLeaderboard = [];
     this.teamData = leaderboardPattern();
   }
 

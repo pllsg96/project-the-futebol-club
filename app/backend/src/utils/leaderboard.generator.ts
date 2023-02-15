@@ -64,6 +64,11 @@ export default class LeaderboardGenerator {
     return teamData;
   }
 
+  // static generateGeneralLeaderboard(xomps: ILeaderboard, team: ITeams, match: IMatch) {
+  //   LeaderboardGenerator.generateLeaderboard(xomps, team, match);
+  //   LeaderboardGenerator.generateAwayLeaderboard(xomps, team, match);
+  // }
+
   static orderLeader(leader: ILeaderboard[]) {
     return leader.sort((home: ILeaderboard, away: ILeaderboard) => {
       if (home.totalPoints < away.totalPoints) return 1;

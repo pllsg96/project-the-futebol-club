@@ -19,8 +19,8 @@ export default class LeaderboardService {
 
   public async getAllLeaderboard() {
     this.finalLeaderboard = [];
-    const allTeams = await (await this.teamService.getAllTeams()).result;
-    const allMatches = await (await this.matchesService.getMatchesByStatus(false)).result;
+    const allTeams = (await this.teamService.getAllTeams()).result;
+    const allMatches = (await this.matchesService.getMatchesByStatus(false)).result;
 
     allTeams?.forEach((team) => {
       this.teamData = leaderboardPattern();
